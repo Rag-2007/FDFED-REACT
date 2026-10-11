@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { transitHubApi } from "../api/transitHubApi.js";
+import {
+  normalizeIdentifier,
+  validateTrackingId,
+} from "../../utils/inputValidation.js";
 
 export default function useTransitHubData(hubId, notify) {
   const [stats, setStats] = useState({
@@ -105,9 +109,10 @@ export default function useTransitHubData(hubId, notify) {
   }, [hubId, loadDashboard, loadInventory]);
 
   const inscan = async (trackingId) => {
-    const id = trackingId.trim().toUpperCase();
-    if (!id) {
-      notify("Enter Tracking ID", true);
+    const id = normalizeIdentifier(trackingId);
+    const validationError = validateTrackingId(id, { allowRto: true });
+    if (validationError) {
+      notify(validationError, true);
       return null;
     }
     try {
@@ -121,9 +126,10 @@ export default function useTransitHubData(hubId, notify) {
   };
 
   const outscan = async (trackingId) => {
-    const id = trackingId.trim().toUpperCase();
-    if (!id) {
-      notify("Enter Tracking ID", true);
+    const id = normalizeIdentifier(trackingId);
+    const validationError = validateTrackingId(id);
+    if (validationError) {
+      notify(validationError, true);
       return null;
     }
     try {
