@@ -1,5 +1,4 @@
 import { apiRequest } from "../../landing/api/client.js";
-
 export const warehouseApi = {
   getInventory: (warehouseId) => apiRequest(`/${warehouseId}/stockInventory`),
   getPendingShipments: (warehouseId) =>
