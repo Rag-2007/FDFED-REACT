@@ -309,11 +309,9 @@ The backend should be available at the URL configured by `VITE_API_BASE`.
 ## Development Notes
 
 - The application uses Vite for development and production builds.
-- Dashboard modules are loaded with React lazy loading.
 - Authentication tokens are sent using the `Authorization: Bearer <token>` header.
 - API requests include credentials for cookie-based session support.
 - Do not commit secrets, production API keys, or private environment variables.
-- Remove macOS-generated `.DS_Store` files before committing changes.
 
 ## License
 
